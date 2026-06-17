@@ -10,7 +10,14 @@ from dotenv import load_dotenv
 # Load environment variables dari file .env
 load_dotenv()
 
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:3001")
+BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:3001").strip().rstrip("/")
+if not BACKEND_URL.startswith(("http://", "https://")):
+    # Jika berupa domain (mengandung dot dan bukan IP murni), gunakan https, selain itu http
+    is_domain = "." in BACKEND_URL and not all(c.isdigit() or c == "." or c == ":" for c in BACKEND_URL) and "localhost" not in BACKEND_URL.lower()
+    if is_domain:
+        BACKEND_URL = "https://" + BACKEND_URL
+    else:
+        BACKEND_URL = "http://" + BACKEND_URL
 AUTH_TOKEN = os.getenv("AUTH_TOKEN", "20181110008")
 IDENTIFY_BY = os.getenv("IDENTIFY_BY", "ip").lower()
 IDENTIFY_VALUE = os.getenv("IDENTIFY_VALUE", "")
