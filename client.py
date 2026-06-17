@@ -63,23 +63,22 @@ while True:
                 action = data.get("action", "power_on")
                 
                 if action == "power_off":
-                    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Received command: power_off -> Initiating Shutdown")
+                    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Received command: power_off -> Initiating Shutdown", flush=True)
                     subprocess.Popen("shutdown /s /t 0", shell=True)
                 elif action == "power_sleep":
-                    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Received command: power_sleep -> Initiating Sleep")
+                    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Received command: power_sleep -> Initiating Sleep", flush=True)
                     subprocess.Popen("rundll32.exe powrprof.dll,SetSuspendState 0,1,0", shell=True)
                 elif action == "power_reboot":
-                    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Received command: power_reboot -> Initiating Reboot")
+                    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Received command: power_reboot -> Initiating Reboot", flush=True)
                     subprocess.Popen("shutdown /r /t 0", shell=True)
                 else:
-                    # power_on atau status normal lainnya -> diamkan
-                    pass
+                    print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Connection OK. Action: {action}", flush=True)
             else:
-                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Server returned failure: {data.get('message')}")
+                print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Server returned failure: {data.get('message')}", flush=True)
                 
     except urllib.error.URLError as e:
-        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Connection error: {e.reason}")
+        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Connection error: {e.reason}", flush=True)
     except Exception as e:
-        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Error in polling loop: {str(e)}")
+        print(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] Error in polling loop: {str(e)}", flush=True)
         
     time.sleep(POLL_INTERVAL)
