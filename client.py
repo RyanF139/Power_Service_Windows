@@ -14,7 +14,7 @@ BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:3001")
 AUTH_TOKEN = os.getenv("AUTH_TOKEN", "20181110008")
 IDENTIFY_BY = os.getenv("IDENTIFY_BY", "ip").lower()
 IDENTIFY_VALUE = os.getenv("IDENTIFY_VALUE", "")
-POLL_INTERVAL = int(os.getenv("POLL_INTERVAL_SECONDS", "10"))
+POLL_INTERVAL = float(os.getenv("POLL_INTERVAL_SECONDS", "10"))
 
 def get_local_ip():
     try:

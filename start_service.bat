@@ -10,7 +10,7 @@ if not exist run_hidden.vbs (
 )
 
 :: Cek apakah service sudah berjalan
-powershell -Command "$p = Get-CimInstance Win32_Process -Filter \"CommandLine like '%%client.py%%'\"; if ($p) { exit 1 } else { exit 0 }"
+powershell -NoProfile -Command "$p = Get-CimInstance Win32_Process -Filter \"(Name = 'python.exe' or Name = 'pythonw.exe') and CommandLine like '%%client.py%%'\"; if ($p) { exit 1 } else { exit 0 }"
 if %errorlevel% equ 1 (
     echo [INFO] Power Service sudah berjalan di background.
     pause

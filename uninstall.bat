@@ -7,7 +7,7 @@ echo.
 
 :: 1. Hentikan proses latar belakang
 echo Menghentikan proses background...
-powershell -Command "$processes = Get-CimInstance Win32_Process -Filter \"CommandLine like '%%client.py%%'\"; if ($processes) { foreach ($p in $processes) { Stop-Process -Id $p.ProcessId -Force; Write-Host \"[SUCCESS] Menghentikan proses dengan PID: $($p.ProcessId)\" } } else { Write-Host \"[INFO] Tidak ada proses aktif.\" }"
+powershell -NoProfile -Command "$processes = Get-CimInstance Win32_Process -Filter \"(Name = 'python.exe' or Name = 'pythonw.exe') and CommandLine like '%%client.py%%'\"; if ($processes) { foreach ($p in $processes) { Stop-Process -Id $p.ProcessId -Force; Write-Host \"[SUCCESS] Menghentikan proses dengan PID: $($p.ProcessId)\" } } else { Write-Host \"[INFO] Tidak ada proses aktif.\" }"
 echo.
 
 :: 2. Hapus dari Startup Windows
